@@ -1,9 +1,11 @@
 import CardItem from './CardItem';
 import Product from './Product';
+import Category from './Category';
 
 describe('card item', () => {
     test('should correctly initalize', () => {
-        const apple = new Product('Apple', 5.0);
+        const category = new Category('Food');
+        const apple = new Product('Apple', 5.0, category);
         const quantity = 37;
 
         const cardItem = new CardItem(apple, quantity);
@@ -13,12 +15,13 @@ describe('card item', () => {
     });
 
     test('should use setters', () => {
-        const apple = new Product('Apple', 5.0);
+        const category = new Category('Food');
+        const apple = new Product('Apple', 5.0, category);
         const quantity = 37;
 
         const cardItem = new CardItem(apple, quantity);
 
-        const orange = new Product('Orange', 10.0);
+        const orange = new Product('Orange', 10.0, category);
         const newQuantity = 73;
 
         cardItem.product = orange;
