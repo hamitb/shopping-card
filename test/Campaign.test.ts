@@ -8,6 +8,7 @@ describe('campaign', () => {
 
         expect(campaign.category).toBe(category);
         expect(campaign.discountPerc).toBeCloseTo(10.0);
+        expect(campaign.active).toBeFalsy();
     });
 
     test('should use setters', () => {
@@ -16,8 +17,10 @@ describe('campaign', () => {
         
         campaign.category = newCategory;
         campaign.discountPerc = 20.0;
+        campaign.active = true;
 
         expect(campaign.category).toBe(newCategory);
         expect(campaign.discountPerc).toBeCloseTo(20.0);
+        expect(campaign.active).toBeTruthy();
     });
 });

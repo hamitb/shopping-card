@@ -1,6 +1,8 @@
+import { Nullable } from "./Types";
+
 export default class Category {
     private _title: string;
-    private _parent: Category | undefined;
+    private _parent: Nullable<Category>;
 
     constructor(title: string, parent?: Category) {
         this._title = title;
@@ -15,7 +17,7 @@ export default class Category {
         this._title = newTitle;
     }
 
-    get parent(): Category | undefined {
+    get parent(): Nullable<Category> {
         return this._parent;
     }
 }
