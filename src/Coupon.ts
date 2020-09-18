@@ -5,8 +5,16 @@ export default class Coupon {
 
     constructor(discount: number, minCardAmount: number) {
         this._used = false;
-        this._discount = discount;
         this._minCardAmount = minCardAmount;
+
+        Coupon.checkValidDiscount(discount);
+        this._discount = discount;
+    }
+
+    private static checkValidDiscount(discount: number) {
+        if (discount < 0) {
+            throw new RangeError('Discount can not be negative');
+        }
     }
 
     get discount(): number {
@@ -14,6 +22,7 @@ export default class Coupon {
     }
 
     set discount(newDiscount: number) {
+        Coupon.checkValidDiscount(newDiscount);
         this._discount = newDiscount;
     }
 

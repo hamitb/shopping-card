@@ -7,8 +7,16 @@ export default class Product {
 
     constructor(title: string, price: number, category: Category) {
         this._title = title;
-        this._price = price;
         this._category = category;
+        
+        Product.checkValidPrice(price);
+        this._price = price;
+    }
+
+    private static checkValidPrice(price: number) {
+        if (price < 0) {
+            throw new RangeError('Price can not be negative');
+        }
     }
 
     get title(): string {
@@ -24,6 +32,7 @@ export default class Product {
     }
     
     set price(newPrice: number) {
+        Product.checkValidPrice(newPrice);
         this._price = newPrice;
     }
     

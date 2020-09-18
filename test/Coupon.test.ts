@@ -18,4 +18,8 @@ describe('coupon', () => {
         expect(coupon.discount).toBeCloseTo(25.0);
         expect(coupon.minCardAmount).toBeCloseTo(250.0);
     });
+
+    test('should raise error with negative discounts', () => {
+        expect(() => new Coupon(-10.0, 100.0)).toThrow(RangeError);
+    });
 });

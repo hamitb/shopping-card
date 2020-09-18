@@ -6,7 +6,15 @@ export default class CardItem {
 
     constructor(product: Product, quantity: number) {
         this._product = product;
+
+        CardItem.checkValidQuantity(quantity);
         this._quantity = quantity;
+    }
+
+    private static checkValidQuantity(quantity: number) {
+        if (quantity < 0) {
+            throw new RangeError('Quantity can not be negative');
+        }
     }
 
     get product(): Product {
@@ -22,6 +30,7 @@ export default class CardItem {
     }
 
     set quantity(newQuantity: number) {
+        CardItem.checkValidQuantity(newQuantity);
         this._quantity = newQuantity;
     }
 }

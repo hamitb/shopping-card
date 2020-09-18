@@ -29,5 +29,13 @@ describe('card item', () => {
 
         expect(cardItem.product).toBe(orange);
         expect(cardItem.quantity).toBe(newQuantity);
-    })
+    });
+
+    test('should raise error with negative quantity', () => {
+        const category = new Category('Food');
+        const apple = new Product('Apple', 5.0, category);
+        const quantity = -5;
+
+        expect(() => new CardItem(apple, quantity)).toThrow(RangeError);
+    });
 });

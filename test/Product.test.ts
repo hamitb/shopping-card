@@ -23,5 +23,9 @@ describe('product', () => {
         expect(product.title).toBe('MacBook Pro');
         expect(product.price).toBeCloseTo(9000.0);
         expect(product.category).toBe(computersCategory);
-    })
+    });
+
+    test('should throw error with negative price', () => {
+        expect(() => new Product('Apple', -100.0, new Category('Food'))).toThrow(RangeError);
+    });
 });
