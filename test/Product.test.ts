@@ -1,5 +1,5 @@
-import Product from './Product';
-import Category from './Category';
+import Product from '../src/Product';
+import Category from '../src/Category';
 
 describe('product', () => {
     test('should correctly initalize', () => {

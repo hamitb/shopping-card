@@ -1,4 +1,4 @@
-import Category from './Category';
+import Category from '../src/Category';
 
 describe('category', () => {
     test('should correctly initalize', () => {

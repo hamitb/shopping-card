@@ -1,8 +1,10 @@
 export default class Coupon {
     private _discount: number;
     private _minCardAmount: number;
+    private _used: boolean;
 
     constructor(discount: number, minCardAmount: number) {
+        this._used = false;
         this._discount = discount;
         this._minCardAmount = minCardAmount;
     }
@@ -21,5 +23,9 @@ export default class Coupon {
 
     set minCardAmount(newMinCardAmount: number) {
         this._minCardAmount = newMinCardAmount;
+    }
+
+    get used(): boolean {
+        return this._used;
     }
 }

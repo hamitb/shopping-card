@@ -1,6 +1,6 @@
-import CardItem from './CardItem';
-import Product from './Product';
-import Category from './Category';
+import CardItem from '../src/CardItem';
+import Product from '../src/Product';
+import Category from '../src/Category';
 
 describe('card item', () => {
     test('should correctly initalize', () => {
