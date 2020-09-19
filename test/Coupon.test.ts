@@ -14,9 +14,11 @@ describe('coupon', () => {
 
         coupon.discount = 25.0;
         coupon.minCardAmount = 250.0;
+        coupon.used = true;
 
         expect(coupon.discount).toBeCloseTo(25.0);
         expect(coupon.minCardAmount).toBeCloseTo(250.0);
+        expect(coupon.used).toBeTruthy();
     });
 
     test('should raise error with negative discounts', () => {

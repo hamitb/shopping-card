@@ -14,7 +14,7 @@ describe('campaign manager', () => {
         expect(gotCampaign).toBe(campaign);
     });
 
-    test('should return parent campaign', () => {
+    test('should return parent category campaign', () => {
         const parentCategory = new Category('Cloths');
         const childCategory = new Category('Shirts', parentCategory);
         const campaign = new Campaign(parentCategory, 10.0);

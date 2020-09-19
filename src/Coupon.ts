@@ -37,4 +37,8 @@ export default class Coupon {
     get used(): boolean {
         return this._used;
     }
+
+    set used(isUsed: boolean) {
+        this._used = isUsed;
+    }
 }
