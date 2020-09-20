@@ -8,7 +8,15 @@ export default class Campaign {
     constructor(category: Category, discountPerc: number) {
         this._active = false;
         this._category = category;
+
+        Campaign.checkValidDiscount(discountPerc);
         this._discountPerc = discountPerc;
+    }
+
+    private static checkValidDiscount(discount: number) {
+        if (discount < 0 || discount > 100.0) {
+            throw new RangeError('Discount can not be negative');
+        }
     }
 
     get category(): Category {
@@ -24,6 +32,7 @@ export default class Campaign {
     }
 
     set discountPerc(newDiscountPerc: number) {
+        Campaign.checkValidDiscount(newDiscountPerc);
         this._discountPerc = newDiscountPerc;
     }
 

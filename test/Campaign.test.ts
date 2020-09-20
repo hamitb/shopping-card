@@ -23,4 +23,11 @@ describe('campaign', () => {
         expect(campaign.discountPerc).toBeCloseTo(20.0);
         expect(campaign.active).toBeTruthy();
     });
+
+    test('should throw error for non valid discounts', () => {
+        const category = new Category('Foods');
+        
+        expect(() => new Campaign(category, -10.0)).toThrow(RangeError);
+        expect(() => new Campaign(category, 120.0)).toThrow(RangeError);
+    });
 });
