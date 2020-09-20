@@ -1,7 +1,7 @@
 # shopping-card
 
 ## Assumptions
-* There were not too many details about the campaign discounts. Only given specification was "*Campaign discount vary based on the number of products in the card*". I have assumed that this means campaign discounts are based on the percentages like: *20% discount on Computers category*.
+* There were not too many details about the campaign discounts. Only given specification was "*Campaign discount vary based on the number of products in the card*". I have assumed that this means campaign discounts are based on the percentages like: "*20% discount on Computers category*".
 
 * Another topic which has not too many details was the delivery costs. Only given information was "*Delivery cost is dynamic, based on the number of deliveries and number of products*". Given that sentence I have assumed the followings: 
     * Each product is send separately by different sellers.
