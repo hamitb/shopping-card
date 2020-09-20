@@ -33,4 +33,8 @@ export default class CardItem {
         CardItem.checkValidQuantity(newQuantity);
         this._quantity = newQuantity;
     }
+
+    public getPrice(): number {
+        return this._product.salePrice * this._quantity;
+    }
 }

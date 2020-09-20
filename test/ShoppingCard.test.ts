@@ -174,6 +174,20 @@ describe('shopping card', () => {
 
             expect(shoppingCard.getTotalAmount()).toBeCloseTo(108.0);
         });
+
+        test('should apply parent category campaign', () => {
+            const shoppingCard = createNewCard();
+            const parentCategory = new Category('Clothes');
+            const childCategory = new Category('Shirts', parentCategory);
+
+            const product = new Product('White Shirt', 100.0, childCategory);
+
+            shoppingCard.addItem(new CardItem(product, 2));
+
+            CampaignManager.start(new Campaign(parentCategory, 25.0));
+
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(285.0);
+        });
     });
 });
 

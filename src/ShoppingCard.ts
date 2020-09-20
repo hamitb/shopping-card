@@ -24,6 +24,10 @@ export default class ShoppingCard {
         this._cardItems = cardItems;
     }
 
+    public isEmpty(): boolean {
+        return this._cardItems.length === 0;
+    }
+
     public addItem(item: CardItem): ShoppingCard {
         this._cardItems.push(item);
 
@@ -83,17 +87,7 @@ export default class ShoppingCard {
         let amount = 0.0;
 
         for (const cardItem of this._cardItems) {
-            const quantity = cardItem.quantity;
-            const category = cardItem.product.category;
-            const campaign = CampaignManager.getFor(category);
-
-            let price = cardItem.product.price;
-
-            if (campaign) {
-                price *= (100.0 - campaign.discountPerc) / 100.0;
-            }
-
-            amount += price * quantity;
+            amount += cardItem.getPrice();
         }
 
         return amount;

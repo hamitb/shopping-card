@@ -1,8 +1,9 @@
 import Category from "./Category";
+import CampaignManager from "./CampaignManager";
 
 export default class Product {
     private _title: string;
-    private _price: number;
+    private _originalPrice: number;
     private _category: Category;
 
     constructor(title: string, price: number, category: Category) {
@@ -10,7 +11,7 @@ export default class Product {
         this._category = category;
         
         Product.checkValidPrice(price);
-        this._price = price;
+        this._originalPrice = price;
     }
 
     private static checkValidPrice(price: number) {
@@ -27,13 +28,23 @@ export default class Product {
         this._title = newTitle;
     }
 
-    get price(): number {
-        return this._price;
+    get salePrice(): number {
+        const campaign = CampaignManager.getFor(this._category);
+
+        if (campaign) {
+            return campaign.getDiscounted(this._originalPrice);
+        }
+
+        return this._originalPrice;
+    }
+
+    get originalPrice(): number {
+        return this._originalPrice;
     }
     
-    set price(newPrice: number) {
+    set originalPrice(newPrice: number) {
         Product.checkValidPrice(newPrice);
-        this._price = newPrice;
+        this._originalPrice = newPrice;
     }
     
     get category(): Category {

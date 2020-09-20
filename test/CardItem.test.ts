@@ -38,4 +38,13 @@ describe('card item', () => {
 
         expect(() => new CardItem(apple, quantity)).toThrow(RangeError);
     });
+
+    test('should return correct price for item', () => {
+        const category = new Category('Food');
+        const product = new Product('Apple', 5.0, category);
+
+        const cardItem = new CardItem(product, 15);
+
+        expect(cardItem.getPrice()).toBeCloseTo(75.0);
+    });
 });

@@ -43,4 +43,8 @@ export default class Campaign {
     set active(isActive: boolean) {
         this._active = isActive;
     }
+
+    public getDiscounted(price: number) {
+        return price * (100.0 - this._discountPerc) / 100.0;
+    }
 }
