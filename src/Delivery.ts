@@ -4,6 +4,10 @@ export default class Delivery {
     private static readonly SINGLE_PACKAGE_COST: number = 10.0;
     private static readonly MAX_ITEM_PER_PACKAGE: number = 5;
 
+    /**
+     * Calculates the given shopping card's delivery cost.
+     * @param shoppingCard
+     */
     public static costOf(shoppingCard: ShoppingCard): number {
         if (shoppingCard.isEmpty()) {
             return 0.0;

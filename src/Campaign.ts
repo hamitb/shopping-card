@@ -44,7 +44,11 @@ export default class Campaign {
         this._active = isActive;
     }
 
+    /**
+     * Returns the discounted price during the campaign.
+     * @param price Original price before discount
+     */
     public getDiscounted(price: number) {
-        return price * (100.0 - this._discountPerc) / 100.0;
+        return price * (100.0 - this._discountPerc) / 100.0
     }
 }

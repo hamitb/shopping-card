@@ -34,6 +34,9 @@ export default class CardItem {
         this._quantity = newQuantity;
     }
 
+    /**
+     * Returns the given cardItem's total price.
+     */
     public getPrice(): number {
         return this._product.salePrice * this._quantity;
     }

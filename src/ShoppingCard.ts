@@ -2,6 +2,7 @@ import CardItem from "./CardItem";
 import Coupon from "./Coupon";
 import { UsedCouponError, MinCardAmountError } from "./Errors";
 import CampaignManager from "./CampaignManager";
+import Delivery from "./Delivery";
 
 export default class ShoppingCard {
     private _cardItems: CardItem[];
@@ -24,16 +25,27 @@ export default class ShoppingCard {
         this._cardItems = cardItems;
     }
 
+    /**
+     * Returns if the shopping card is empty.
+     */
     public isEmpty(): boolean {
         return this._cardItems.length === 0;
     }
 
+    /**
+     * Adds the given CardItem to shopping card.
+     * @param item 
+     */
     public addItem(item: CardItem): ShoppingCard {
         this._cardItems.push(item);
 
         return this;
     }
 
+    /**
+     * Removes the given CardItem from the shopping card.
+     * @param item
+     */
     public removeItem(item: CardItem): ShoppingCard {
         const index = this._cardItems.indexOf(item);
         if (index > -1) {
@@ -45,6 +57,9 @@ export default class ShoppingCard {
         return this;
     }
 
+    /**
+     * Returns the total amount to pay for this shopping card.
+     */
     public getTotalAmount(): number {
         let amount = this.getCardAmount();
 
@@ -54,9 +69,15 @@ export default class ShoppingCard {
 
         amount = Math.max(0.0, amount);
 
+        amount += Delivery.costOf(this);
+
         return amount;
     }
 
+    /**
+     * Apply given coupon to the shopping card.
+     * @param coupon 
+     */
     public useCoupon(coupon: Coupon): ShoppingCard {
         if (coupon.used) {
             throw new UsedCouponError('Coupon is already used');
@@ -72,6 +93,10 @@ export default class ShoppingCard {
         return this;
     }
 
+    /**
+     * Removes the given coupon from the shopping card.
+     * @param coupon 
+     */
     public removeCoupon(coupon: Coupon): ShoppingCard {
         const index = this._coupons.indexOf(coupon);
 

@@ -91,7 +91,7 @@ describe('shopping card', () => {
         test('should correctly calculate total card amount', () => {
             const shoppingCard = createNewCard();
 
-            expect(shoppingCard.getTotalAmount()).toBeCloseTo(135.0);
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(165.0);
         });
     });
 
@@ -102,7 +102,7 @@ describe('shopping card', () => {
 
             shoppingCard.useCoupon(coupon);
 
-            expect(shoppingCard.getTotalAmount()).toBeCloseTo(125.0);
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(155.0);
         });
 
         test('should be able to remove coupons', () => {
@@ -112,12 +112,12 @@ describe('shopping card', () => {
             shoppingCard.useCoupon(coupon);
 
             expect(coupon.used).toBeTruthy();
-            expect(shoppingCard.getTotalAmount()).toBeCloseTo(125.0);
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(155.0);
 
             shoppingCard.removeCoupon(coupon);
 
             expect(coupon.used).toBeFalsy();
-            expect(shoppingCard.getTotalAmount()).toBeCloseTo(135.0);
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(165.0);
         });
 
         test('should do nothing when removing a non-existing coupon', () => {
@@ -127,7 +127,7 @@ describe('shopping card', () => {
             shoppingCard.removeCoupon(coupon);
 
             expect(coupon.used).toBeFalsy();
-            expect(shoppingCard.getTotalAmount()).toBeCloseTo(135.0);
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(165.0);
         });
 
         test('should not use already used coupons', () => {
@@ -154,11 +154,11 @@ describe('shopping card', () => {
             shoppingCard.useCoupon(coupon1);
             shoppingCard.useCoupon(coupon2);
 
-            expect(shoppingCard.getTotalAmount()).toBeCloseTo(120.0);
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(150.0);
 
             shoppingCard.removeItem(shoppingCard.cardItems[0]);
 
-            expect(shoppingCard.getTotalAmount()).toBeCloseTo(100.0);
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(120.0);
 
         });
     });
@@ -172,7 +172,7 @@ describe('shopping card', () => {
 
             CampaignManager.start(campaign);
 
-            expect(shoppingCard.getTotalAmount()).toBeCloseTo(108.0);
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(138.0);
         });
 
         test('should apply parent category campaign', () => {
@@ -186,7 +186,7 @@ describe('shopping card', () => {
 
             CampaignManager.start(new Campaign(parentCategory, 25.0));
 
-            expect(shoppingCard.getTotalAmount()).toBeCloseTo(285.0);
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(325.0);
         });
     });
 });
