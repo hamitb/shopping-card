@@ -4,6 +4,8 @@ import Product from '../src/Product';
 import Category from '../src/Category';
 import Coupon from '../src/Coupon';
 import { UsedCouponError, MinCardAmountError } from '../src/Errors';
+import Campaign from '../src/Campaign';
+import CampaignManager from '../src/CampaignManager';
 
 describe('shopping card', () => {
     describe('class ', () => {
@@ -46,23 +48,7 @@ describe('shopping card', () => {
         });
     });
 
-    describe('behaviorally', () => {
-        const createNewCard = function(): ShoppingCard {
-            const shoppingCard = new ShoppingCard();
-    
-            const category = new Category('Food');
-            const product1 = new Product('Apple', 10.0, category);
-            const product2 = new Product('Orange', 15.0, category);
-    
-            const cardItem1 = new CardItem(product1, 3);
-            const cardItem2 = new CardItem(product2, 7);
-    
-            shoppingCard.addItem(cardItem1);
-            shoppingCard.addItem(cardItem2);
-
-            return shoppingCard;
-        }
-
+    describe('card items', () => {
         test('should be able to add get card items', () => {
             const shoppingCard = createNewCard();
             const allItems = shoppingCard.cardItems;
@@ -88,7 +74,7 @@ describe('shopping card', () => {
             expect(allItems[0]).toBe(cardItem2);
         });
 
-        test('should do nothing when removing a non-existing item',  () => {
+        test('should do nothing when removing a non-existing item', () => {
             const shoppingCard = createNewCard();
 
             const category = new Category('Cloths');
@@ -107,7 +93,9 @@ describe('shopping card', () => {
 
             expect(shoppingCard.getTotalAmount()).toBeCloseTo(135.0);
         });
+    });
 
+    describe('coupons', () => {
         test('should be able to use coupons', () => {
             const shoppingCard = createNewCard();
             const coupon = new Coupon(10.0, 100.0);
@@ -157,5 +145,50 @@ describe('shopping card', () => {
 
             expect(() => shoppingCard.useCoupon(coupon)).toThrow(MinCardAmountError);
         });
+
+        test('should invalidate coupons when an item is deleted', () => {
+            const shoppingCard = createNewCard();
+            const coupon1 = new Coupon(10.0, 120.0);
+            const coupon2 = new Coupon(5.0, 100.0);
+
+            shoppingCard.useCoupon(coupon1);
+            shoppingCard.useCoupon(coupon2);
+
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(120.0);
+
+            shoppingCard.removeItem(shoppingCard.cardItems[0]);
+
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(100.0);
+
+        });
+    });
+
+    describe('campaigns', () => {
+        test('should apply campaigns', () => {
+            const shoppingCard = createNewCard();
+            const foodCategory = shoppingCard.cardItems[0].product.category;
+
+            const campaign = new Campaign(foodCategory, 20.0);
+
+            CampaignManager.start(campaign);
+
+            expect(shoppingCard.getTotalAmount()).toBeCloseTo(108.0);
+        });
     });
 });
+
+const createNewCard = function (): ShoppingCard {
+    const shoppingCard = new ShoppingCard();
+
+    const category = new Category('Food');
+    const product1 = new Product('Apple', 10.0, category);
+    const product2 = new Product('Orange', 15.0, category);
+
+    const cardItem1 = new CardItem(product1, 3);
+    const cardItem2 = new CardItem(product2, 7);
+
+    shoppingCard.addItem(cardItem1);
+    shoppingCard.addItem(cardItem2);
+
+    return shoppingCard;
+}
